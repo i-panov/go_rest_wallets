@@ -8,7 +8,7 @@
 - Пополнение баланса
 - Снятие средств
 - Автоматическое создание новых кошельков:
-  - при вызове метода `update` с `operationType: "DEPOSIT"` и пустым `walletId`
+  - при вызове метода `POST /api/v1/wallet` с `operationType: "DEPOSIT"` и пустым `walletId`
   - при попытке пополнить несуществующий кошелёк
 - Поддержка высокой нагрузки — более **7000 RPS**
 - Unit-тесты и нагрузочное тестирование через `wrk`
@@ -84,11 +84,11 @@ Transfer/sec:      5.30MB
 
 ---
 
-### ✅ POST `/api/v1/wallet/update` — пополнение/снятие
+### ✅ POST `/api/v1/wallet` — пополнение/снятие
 
 ```bash
 $ wrk -t12 -c1000 -d30s -s wrk.lua http://localhost:8080/api/v1/wallet
-Running 30s test @ http://localhost:8080/api/v1/wallet/update
+Running 30s test @ http://localhost:8080/api/v1/wallet
   12 threads and 1000 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
     Latency   135.60ms   17.65ms 312.96ms   91.08%
@@ -115,7 +115,7 @@ curl http://localhost:8080/api/v1/wallets/a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
 ### ✅ Пополнить существующий кошелёк
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/wallet/update \
+curl -X POST http://localhost:8080/api/v1/wallet \
      -H "Content-Type: application/json" \
      -d '{"walletId":"existing-id","operationType":"DEPOSIT","amount":50}'
 ```
@@ -123,7 +123,7 @@ curl -X POST http://localhost:8080/api/v1/wallet/update \
 ### ✅ Снять средства
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/wallet/update \
+curl -X POST http://localhost:8080/api/v1/wallet \
      -H "Content-Type: application/json" \
      -d '{"walletId":"existing-id","operationType":"WITHDRAW","amount":30}'
 ```
@@ -131,7 +131,7 @@ curl -X POST http://localhost:8080/api/v1/wallet/update \
 ### ✅ Создать новый кошелёк
 
 ```bash
-curl -X POST http://localhost:8080/api/v1/wallet/update \
+curl -X POST http://localhost:8080/api/v1/wallet \
      -H "Content-Type: application/json" \
      -d '{"operationType":"DEPOSIT","amount":100}'
 ```
