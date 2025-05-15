@@ -36,14 +36,7 @@
 cp .env.example .env
 ```
 
-Укажите правильные значения:
-
-```env
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=testdb
-POSTGRES_PORT=5432
-```
+Укажите правильные значения.
 
 ---
 
@@ -164,9 +157,3 @@ curl -X POST http://localhost:8080/api/v1/wallet/update \
   "error": "Validation error on field 'id': cannot be empty"
 }
 ```
-
----
-
-## 📄 Лицензия
-
-MIT License — см. [LICENSE](LICENSE) для подробностей.
