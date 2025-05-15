@@ -89,9 +89,6 @@ func (r *WalletsRepository) Withdraw(id string, amount float64) (*Wallet, error)
 	return r.walletTransaction(id, amount, false)
 }
 
-// todo: сделать чтобы можно было не указывать id, а он создавался автоматически
-// и протестировать производительность этого метода
-
 func (r *WalletsRepository) walletTransaction(id string, amount float64, add bool) (*Wallet, error) {
 	if id == "" {
 		if add {
